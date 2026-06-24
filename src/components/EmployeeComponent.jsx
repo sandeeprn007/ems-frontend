@@ -8,6 +8,8 @@ const EmployeeComponent = () => {
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
 
+    const [apiError, setApiError] = useState('');
+
     const {id} = useParams();
     const [errors, setErrors] = useState({
         firstName: '',
@@ -51,6 +53,7 @@ const EmployeeComponent = () => {
                     navigator('/employees')
                 }).catch(error => {
                     console.error(error);
+                    setApiError(error.response.data.message);
                 })
             }          
         } 
@@ -137,6 +140,7 @@ const EmployeeComponent = () => {
                             </input>
                             {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
                         </div>
+                        {apiError && <div className='invalid-feedback d-block'>{apiError}</div>}<br />
                         <button className='btn btn-success' onClick={saveOrUpdateEmployee}>Submit</button>
                     </form>
                 </div>
