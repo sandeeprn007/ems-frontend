@@ -1,16 +1,13 @@
-import axios from "axios";
+import apiClient from "./AxiosConfig";
 
-// const REST_API_BASE_URL = "http://localhost:8080/api/employees";
+const REST_API_BASE_URL = "/employees";
 
-//API base URL using render.com for backend deployment
-const REST_API_BASE_URL = "https://ems-backend-1dv9.onrender.com/api/employees";
+export const listEmployees = () => apiClient.get(REST_API_BASE_URL);
 
-export const listEmployees = () => axios.get(REST_API_BASE_URL);
+export const createEmployee = (employee) => apiClient.post(REST_API_BASE_URL, employee);
 
-export const createEmployee = (employee) => axios.post(REST_API_BASE_URL, employee);
+export const getEmployee = (employeeId) => apiClient.get(REST_API_BASE_URL + '/' + employeeId);
 
-export const getEmployee = (employeeId) => axios.get(REST_API_BASE_URL + '/' + employeeId);
+export const updateEmployee = (employeeId, employee) => apiClient.put(REST_API_BASE_URL + '/' + employeeId, employee);
 
-export const updateEmployee = (employeeId, employee) => axios.put(REST_API_BASE_URL + '/' + employeeId, employee);
-
-export const deleteEmployee = (employeeId) => axios.delete(REST_API_BASE_URL + '/' + employeeId);
+export const deleteEmployee = (employeeId) => apiClient.delete(REST_API_BASE_URL + '/' + employeeId);

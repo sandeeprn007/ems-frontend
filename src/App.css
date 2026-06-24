@@ -7,3 +7,9 @@
   text-align: center;
   color: white;
 }
+
+.login-container {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+}
