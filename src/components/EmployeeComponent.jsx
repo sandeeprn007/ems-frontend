@@ -26,7 +26,8 @@ const EmployeeComponent = () => {
                 setLastName(response.data.lastName)
                 setEmail(response.data.email)
             }).catch(error => {
-                console.error(error);
+                // console.error(error);
+                setApiError(error?.response?.data?.message || 'Something went wrong');
             })
         }
     }, [id])
@@ -45,15 +46,16 @@ const EmployeeComponent = () => {
                     console.log(response.data)
                     navigator('/employees')
                 }).catch(error => {
-                    console.error(error);
+                    // console.error(error);
+                setApiError(error?.response?.data?.message || 'Something went wrong');
                 })  
             } else {
                 createEmployee(employee).then((response) => {
                     console.log(response.data)
                     navigator('/employees')
                 }).catch(error => {
-                    console.error(error);
-                    setApiError(error.response.data.message);
+                    // console.error(error);
+                    setApiError(error?.response?.data?.message || 'Something went wrong');
                 })
             }          
         } 
