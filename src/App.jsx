@@ -30,7 +30,6 @@ function App() {
             <Route path = "/register-admin" element = {<ProtectedRoute requiredRole="ADMIN"><RegisterAdminComponent/></ProtectedRoute>}></Route>
             <Route path = "/change-password" element = {<ProtectedRoute requiredRole="ADMIN"><ChangePasswordComponent/></ProtectedRoute>}></Route>
 
-
           </Routes>    
         <FooterComponent/>    
       </BrowserRouter>
