@@ -1,13 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { isAdminUser, isUserLoggedIn, logout } from '../services/AuthService'
+import { useAuth } from '../context/AuthContext'
 
 const HeaderComponent = () => {
   const navigator = useNavigate();
-  const authenticated = isUserLoggedIn();
-  const adminUser = isAdminUser();
+  const { hasRole, isAuthenticated, logoutUser } = useAuth();
+  const adminUser = hasRole('ADMIN');
 
   function handleLogout() {
-    logout();
+    logoutUser();
     navigator('/login');
   }
 
@@ -15,20 +15,23 @@ const HeaderComponent = () => {
     <div>
         <header>
             <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-                <Link className='navbar-brand ms-3' to={authenticated ? '/employees' : '/login'}>
+                <Link className='navbar-brand ms-3' to={isAuthenticated ? '/employees' : '/login'}>
                     Employee Management System
                 </Link>
                 <div className='ms-auto me-3 d-flex gap-2'>
-                    {authenticated && adminUser && (
+                    {isAuthenticated && adminUser && (
                         <>
                             <Link className='btn btn-outline-light btn-sm' to='/register-admin'>Register Admin</Link>
                             <Link className='btn btn-outline-light btn-sm' to='/change-password'>Change Password</Link>
                         </>
                     )}
-                    {authenticated ? (
+                    {isAuthenticated ? (
                         <button className='btn btn-outline-light btn-sm' onClick={handleLogout}>Logout</button>
                     ) : (
-                        <Link className='btn btn-outline-light btn-sm' to='/login'>Login</Link>
+                        <>
+                            <Link className='btn btn-outline-light btn-sm' to='/register'>Register</Link>
+                            <Link className='btn btn-outline-light btn-sm' to='/login'>Login</Link>
+                        </>
                     )}
                 </div>
             </nav>

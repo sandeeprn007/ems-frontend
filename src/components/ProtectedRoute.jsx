@@ -1,10 +1,11 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { hasRole, isUserLoggedIn } from "../services/AuthService";
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children, requiredRole }) => {
     const location = useLocation();
+    const { hasRole, isAuthenticated } = useAuth();
 
-    if (!isUserLoggedIn()) {
+    if (!isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

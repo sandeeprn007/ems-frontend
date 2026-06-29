@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerAdminAPICall } from "../services/AuthService";
 
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
 const RegisterAdminComponent = () => {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
@@ -17,7 +19,17 @@ const RegisterAdminComponent = () => {
         setMessage("");
         setErrorMessage("");
 
-        const registerObj = { name, username, email, password };
+        if (!EMAIL_REGEX.test(email.trim())) {
+            setErrorMessage("Please enter a valid email address.");
+            return;
+        }
+
+        const registerObj = {
+            name: name.trim(),
+            username: username.trim(),
+            email: email.trim(),
+            password
+        };
 
         registerAdminAPICall(registerObj).then((response) => {
             setMessage(response.data || "Admin registered successfully!");

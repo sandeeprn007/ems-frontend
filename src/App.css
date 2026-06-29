@@ -8,8 +8,31 @@
   color: white;
 }
 
-.login-container {
+.login-container,
+.auth-page {
   min-height: calc(100vh - 120px);
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+}
+
+.oauth-divider {
+  align-items: center;
+  color: #6c757d;
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+  background-color: #dee2e6;
+  content: "";
+  flex: 1;
+  height: 1px;
 }

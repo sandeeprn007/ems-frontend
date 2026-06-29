@@ -1,4 +1,4 @@
-import apiClient from "./AxiosConfig";
+import apiClient, { API_BASE_URL } from "./AxiosConfig";
 
 export const loginAPICall = (usernameOrEmail, password) => {
     return apiClient.post("/auth/login", { usernameOrEmail, password });
@@ -16,10 +16,15 @@ export const changePasswordAPICall = (changePasswordObj) => {
     return apiClient.post("/auth/change-password", changePasswordObj);
 };
 
+export const getGoogleOAuthUrl = () => {
+    const backendBaseUrl = API_BASE_URL.replace(/\/api\/?$/, "");
+    return `${backendBaseUrl}/oauth2/authorization/google`;
+};
+
 export const storeLoggedInUser = (token, username, roles) => {
     localStorage.setItem("token", token);
     localStorage.setItem("authenticatedUser", username);
-    localStorage.setItem("roles", JSON.stringify(roles || []));
+    localStorage.setItem("roles", JSON.stringify(Array.isArray(roles) ? roles : []));
 };
 
 export const isUserLoggedIn = () => {

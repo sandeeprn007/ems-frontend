@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { changePasswordAPICall, logout } from "../services/AuthService";
+import { useAuth } from "../context/AuthContext";
+import { changePasswordAPICall } from "../services/AuthService";
 
 const ChangePasswordComponent = () => {
     const [currentPassword, setCurrentPassword] = useState("");
@@ -9,6 +10,7 @@ const ChangePasswordComponent = () => {
     const [message, setMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    const { logoutUser } = useAuth();
     const navigator = useNavigate();
 
     function handleChangePassword(e) {
@@ -32,7 +34,7 @@ const ChangePasswordComponent = () => {
     }
 
     function loginAgain() {
-        logout();
+        logoutUser();
         navigator("/login");
     }
 
